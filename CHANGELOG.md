@@ -1,5 +1,11 @@
 # open-terminal-programmatically
 
+## 1.1.0
+
+### Minor Changes
+
+- `openTerminal` now supports ide prop. Options are: "vscode" (default) | "cursor".
+
 ## 1.0.2
 
 ### Patch Changes
