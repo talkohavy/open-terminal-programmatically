@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
-import type { DebugConfig, TerminalConfig } from './types.js';
 import { wait } from './helpers.js';
+import type { DebugConfig, TerminalConfig } from './types.js';
 
 export type OpenTerminalProps = {
   /**
