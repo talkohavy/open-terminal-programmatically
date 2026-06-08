@@ -22,6 +22,7 @@
     "clean": "rm -rf node_modules",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "tsc": "tsc -p tsconfig.json",
     "format": "biome format ./src",
     "format:fix": "biome format --verbose ./src --write",
     "test": "node --test",
