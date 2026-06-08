@@ -1,5 +1,11 @@
 # open-terminal-programmatically
 
+## 1.2.0
+
+### Minor Changes
+
+- Package now supports opening a JavaScript Debug Terminal.
+
 ## 1.1.0
 
 ### Minor Changes
