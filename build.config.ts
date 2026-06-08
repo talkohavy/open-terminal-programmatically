@@ -2,6 +2,8 @@ import { execSync } from 'child_process';
 import fs, { cpSync } from 'fs';
 import os from 'os';
 import path from 'path';
+import { rollup } from 'rollup';
+import rollupConfig from './rollup.config.ts';
 
 /**
  * @typedef {{
@@ -35,7 +37,7 @@ async function buildPackageConfig() {
 
   cleanTargetDirectory(outDirName);
 
-  build();
+  await build();
 
   copyStaticFiles(outDirName);
 
@@ -47,7 +49,7 @@ async function buildPackageConfig() {
 /**
  * @param {string} outDirName
  */
-function cleanTargetDirectory(outDirName) {
+function cleanTargetDirectory(outDirName: string) {
   console.log(`${COLORS.green}- Step 1:${COLORS.stop} clear the ${outDirName} directory`);
   const deleteCommand = os.platform() === 'win32' ? `rd /s /q ${outDirName}` : `rm -rf ${outDirName}`;
 
@@ -56,9 +58,18 @@ function cleanTargetDirectory(outDirName) {
   console.log('');
 }
 
-function build() {
+async function build() {
   console.log(`${COLORS.green}- Step 2:${COLORS.stop} build`);
-  execSync('rollup --config'); // or the full command: rollup --config rollup.config.mjs
+
+  const { output: outputOptions, ...inputOptions } = rollupConfig;
+  const bundle = await rollup(inputOptions);
+
+  const outputs = Array.isArray(outputOptions) ? outputOptions : [outputOptions];
+  for (const outputOption of outputs) {
+    await bundle.write(outputOption as any);
+  }
+
+  await bundle.close();
 
   console.log('');
 }
@@ -66,7 +77,7 @@ function build() {
 /**
  * @param {string} outDirName
  */
-function copyStaticFiles(outDirName) {
+function copyStaticFiles(outDirName: string) {
   console.log(`${COLORS.green}- Step 3:${COLORS.stop} copy static files`);
 
   const filesToCopyArr = [
@@ -98,7 +109,7 @@ function copyStaticFiles(outDirName) {
 /**
  * @param {string} outDirName
  */
-function manipulatePackageJsonFile(outDirName) {
+function manipulatePackageJsonFile(outDirName: string) {
   console.log(`${COLORS.green}- Step 4:${COLORS.stop} copy & manipulate the package.json file`);
 
   const packageJsonPath = path.resolve(ROOT_PROJECT, outDirName, 'package.json');
@@ -126,10 +137,10 @@ function manipulatePackageJsonFile(outDirName) {
 /**
  * @param {number} startTime in milliseconds
  */
-function printDoneMessage(startTime) {
+function printDoneMessage(startTime: number) {
   const endTime = Date.now();
   const elapsedMs = endTime - startTime;
-  let elapsedTimeMessage;
+  let elapsedTimeMessage: string;
 
   if (elapsedMs >= 1000) {
     const elapsedSec = (elapsedMs / 1000).toFixed(2);

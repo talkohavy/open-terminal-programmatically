@@ -26,7 +26,7 @@
     "format": "biome format ./src",
     "format:fix": "biome format --verbose ./src --write",
     "test": "node --test",
-    "build": "node ./build.config.mjs",
+    "build": "tsx ./build.config",
     "prepare": "husky install"
   },
   "sideEffects": false,
@@ -54,7 +54,6 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.16",
     "@eslint/js": "^10.0.1",
-    "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/node": "^25.9.2",
     "eslint": "^10.4.1",
@@ -67,6 +66,8 @@
     "lvlup": "^1.2.0",
     "prettier": "^3.8.3",
     "rollup": "^4.61.1",
+    "terser": "^5.48.0",
+    "tsx": "^4.22.4",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.1"
   },
