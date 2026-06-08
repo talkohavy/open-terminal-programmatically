@@ -8,17 +8,34 @@ export type OpenTerminalProps = {
    */
   ide?: 'vscode' | 'cursor';
   config: TerminalConfig | DebugConfig;
-  isDebugMode?: boolean;
+  isDebugConsole?: boolean;
+  /**
+   * If set to `true`, opens a JavaScript Debug Terminal — a special integrated terminal
+   * where any Node.js process started inside it is automatically attached to the debugger.
+   *
+   * When using this option, `config` should be of type `TerminalConfig`.
+   * The `config.command` value is the shell command that will run inside the JS Debug Terminal.
+   *
+   * Note: `isDebugTerminal` and `isDebugMode` are mutually exclusive.
+   */
+  isDebugTerminal?: boolean;
   delayNextFor?: number;
 };
 
 export async function openTerminal(props: OpenTerminalProps) {
-  const { ide = 'vscode', config, isDebugMode, delayNextFor } = props;
+  const { ide = 'vscode', config, isDebugConsole, isDebugTerminal, delayNextFor } = props;
 
-  const command = isDebugMode ? '/debug' : '';
+  let path = '';
+
+  if (isDebugConsole) {
+    path = '/debug';
+  } else if (isDebugTerminal) {
+    path = '/js-debug';
+  }
+
   const configAsString = encodeURIComponent(btoa(JSON.stringify(config)));
 
-  execSync(`open '${ide}://open.in-terminal${command}?config=${configAsString}&encoded=true'`);
+  execSync(`open '${ide}://open.in-terminal${path}?config=${configAsString}&encoded=true'`);
 
   if (delayNextFor) await wait(delayNextFor);
 }
