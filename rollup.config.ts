@@ -38,7 +38,7 @@ const config: RollupOptions = {
   ],
   plugins: [
     typescript({
-      tsconfig: './tsconfig.json',
+      tsconfig: './tsconfig.build.json',
       outDir: 'dist',
     }),
   ],
