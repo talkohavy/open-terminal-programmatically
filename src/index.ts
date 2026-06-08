@@ -1,6 +1,6 @@
-import { openTerminal, type OpenTerminalProps } from './openTerminal.js';
-import type { TerminalConfig, DebugConfig } from './types.js';
+// main
+export { openTerminal } from './openTerminal';
 
-export type { TerminalConfig, DebugConfig, OpenTerminalProps };
-
-export { openTerminal };
+// types
+export type { TerminalConfig, DebugConfig } from './types';
+export type { OpenTerminalProps } from './openTerminal';
