@@ -59,14 +59,26 @@ The `openTerminal` is a function you can use to open new terminals in VSCode, or
 
 It accept these following options:
 
-### - `isDebugMode`
+### - `isDebugConsole`
 
 type: boolean
 (Optional)
 default: `false`
 
 If set to `true`, command will open up VSCode's debug terminal, which would appear under the **TERMINAL** tab.  
-If set toe true, the `config` prop should then be of type `DebugConfig`, else, it should be of type `TerminalConfig`. (more on those 2 types is down below).
+If set to true, the `config` prop should then be of type `DebugConfig`, else, it should be of type `TerminalConfig`. (more on those 2 types is down below).
+
+### - `isJSDebugTerminal`
+
+type: boolean
+(Optional)
+default: `false`
+
+If set to `true`, opens a **JavaScript Debug Terminal** — a special integrated terminal where any Node.js process started inside it is automatically attached to the debugger, without needing a launch configuration.
+
+When using this option, `config` should be of type `TerminalConfig`. The `config.command` value is the shell command that will run inside the JavaScript Debug Terminal.
+
+> Note: `isJSDebugTerminal` and `isDebugMode` are mutually exclusive.
 
 ### - `delayNextFor`
 
