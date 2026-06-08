@@ -3,7 +3,7 @@ import fs, { cpSync } from 'fs';
 import os from 'os';
 import path from 'path';
 import { rollup } from 'rollup';
-import rollupConfig from './rollup.config.ts';
+import rollupConfig from './rollup.config';
 
 /**
  * @typedef {{

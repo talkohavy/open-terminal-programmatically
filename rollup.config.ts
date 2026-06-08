@@ -1,12 +1,12 @@
 import typescript from '@rollup/plugin-typescript';
 import { minify } from 'terser';
-import type { NormalizedOutputOptions, RollupOptions, OutputPluginOption } from 'rollup';
+import type { NormalizedOutputOptions, RollupOptions, SourceMapInput } from 'rollup';
 
 /**
  * Inline terser minification — avoids the worker-thread lifecycle bug in
  * @rollup/plugin-terser@1.0.0 when used with rollup@4.x.
  */
-function terserPlugin(outputOptions: NormalizedOutputOptions) {
+function terserPlugin(outputOptions: Pick<NormalizedOutputOptions, 'sourcemap' | 'format'>) {
   return {
     name: 'terser-inline',
     async renderChunk(code: string) {
@@ -15,7 +15,7 @@ function terserPlugin(outputOptions: NormalizedOutputOptions) {
         module: outputOptions.format === 'es',
         toplevel: outputOptions.format === 'cjs',
       });
-      return { code: result.code ?? code, map: result.map };
+      return { code: result.code ?? code, map: result.map as SourceMapInput | undefined };
     },
   };
 }
