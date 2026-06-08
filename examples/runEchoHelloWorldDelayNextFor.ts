@@ -13,7 +13,7 @@ async function runProgramInTerminal() {
 
   const extendedConfig: TerminalConfig = { ...config, color: 'blue' };
 
-  await openTerminal({ config: extendedConfig, delayNextFor });
+  await openTerminal({ ide: 'cursor', config: extendedConfig, delayNextFor });
 }
 
 runProgramInTerminal();

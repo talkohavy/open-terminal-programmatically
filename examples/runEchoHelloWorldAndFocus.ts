@@ -13,7 +13,7 @@ async function runProgramInTerminal() {
 
   const extendedConfig: TerminalConfig = { ...config, color: 'blue' };
 
-  await openTerminal({ config: extendedConfig });
+  await openTerminal({ ide: 'cursor', config: extendedConfig });
 }
 
 runProgramInTerminal();
