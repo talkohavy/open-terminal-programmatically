@@ -22,7 +22,7 @@
     "clean": "rm -rf node_modules",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "format": "biome format --verbose ./src",
+    "format": "biome format ./src",
     "format:fix": "biome format --verbose ./src --write",
     "test": "node --test",
     "build": "node ./build.config.mjs",
