@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
-import { wait } from './helpers.js';
-import type { DebugConfig, TerminalConfig } from './types.js';
+import { wait } from './helpers';
+import type { DebugConfig, TerminalConfig } from './types';
 
 export type OpenTerminalProps = {
   /**
@@ -35,7 +35,9 @@ export async function openTerminal(props: OpenTerminalProps) {
 
   const configAsString = encodeURIComponent(btoa(JSON.stringify(config)));
 
-  execSync(`open '${ide}://open.in-terminal${path}?config=${configAsString}&encoded=true'`);
+  const command = `open '${ide}://open.in-terminal${path}?config=${configAsString}&encoded=true'`;
+
+  execSync(command);
 
   if (delayNextFor) await wait(delayNextFor);
 }
